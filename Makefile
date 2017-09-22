@@ -7,7 +7,9 @@ match=$(shell grep earth.h libnova/src/parallax.c)
 all: autogen compile link
 
 link:
-	emcc $(CFLAGS) libnova/src/*.o libnova/src/elp/*.o -s EXPORTED_FUNCTIONS='["_ln_get_julian_from_sys"]' -o libnova.js
+	emcc $(CFLAGS) libnova/src/*.o libnova/src/elp/*.o \
+	-s EXPORTED_FUNCTIONS='["_ln_get_julian_from_sys"]' \
+	-o libnova_impl.js
 
 compile: patch
 	cd libnova && emconfigure ./configure CFLAGS=$(CFLAGS)
@@ -24,3 +26,6 @@ patch:
 	else \
 		echo "already patched"; \
 	fi
+
+clean:
+	$(MAKE) -C libnova clean

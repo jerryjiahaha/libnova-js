@@ -2,6 +2,6 @@ parallax.c
 *.swp
 libnova/src/parallax.c
 libnova/a.out
-libnova/a.out.js
 *.mem
-libnova.js
+libnova*.js
+a.out.js
