@@ -3,12 +3,17 @@
 CFLAGS ?= -O2
 
 match=$(shell grep earth.h libnova/src/parallax.c)
+libnova_functions=$(shell ./get_libnova_export.bash)
+export_libnova ?= $(shell echo "[" `./get_libnova_export.bash |sed 's/^ln_.*/"_&",/'` "]")
+
 
 all: autogen compile link
 
+#	-s EXPORTED_FUNCTIONS='["_ln_get_julian_from_sys",]' \
+
 link:
 	emcc $(CFLAGS) libnova/src/*.o libnova/src/elp/*.o \
-	-s EXPORTED_FUNCTIONS='["_ln_get_julian_from_sys"]' \
+	-s EXPORTED_FUNCTIONS='$(export_libnova)' \
 	-o libnova_impl.js
 
 compile: patch
