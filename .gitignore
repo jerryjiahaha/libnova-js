@@ -5,3 +5,4 @@ libnova/a.out
 *.mem
 libnova*.js
 a.out.js
+libnova-cpp
